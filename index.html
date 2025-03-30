@@ -1,27 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Ghibli AI Creator</title>
+    <title>Turn ANY Image into Ghibli Style!</title>
     <style>
-        body { font-family: Arial; text-align: center; background: #f0f8ff; }
-        button { padding: 10px 20px; font-size: 16px; }
-        #result { margin: 20px; }
+        body { font-family: Arial, sans-serif; text-align: center; background: #f0f8ff; }
+        #upload-box { border: 2px dashed #aaa; padding: 20px; margin: 20px auto; max-width: 500px; }
+        #result { margin-top: 20px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer; }
+        button:hover { background: #45a049; }
     </style>
 </head>
 <body>
-    <h1>Create Your Own Ghibli Art!</h1>
-    <input type="text" id="prompt" placeholder="Describe your Ghibli scene">
-    <button onclick="generateImage()">Make Magic!</button>
-    <div id="result"></div>
+    <h1>✨ Ghibli-fy Your Images! ✨</h1>
+    <p>Upload any image and transform it into Studio Ghibli's magical style!</p>
     
+    <div id="upload-box">
+        <input type="file" id="image-upload" accept="image/*">
+        <br><br>
+        <textarea id="prompt" placeholder="Describe the Ghibli style you want (e.g., 'Make it look like Spirited Away')"></textarea>
+        <br><br>
+        <button onclick="convertToGhibli()">Ghibli-fy My Image!</button>
+    </div>
+    
+    <div id="result">
+        <h3>Your Ghibli Masterpiece:</h3>
+        <img id="output-image" style="max-width: 500px; display: none;">
+    </div>
+
     <script>
-    async function generateImage() {
-        const promopt = document.getElementById('prompt').value;
-        document.getElementById('result').innerHTML = "Creating your Ghibli magic...";
-        
-        // This would normally connect to your Colab, but needs more setup
-        alert("We need to connect this to your Colab next!");
-    }
+        async function convertToGhibli() {
+            const fileInput = document.getElementById("image-upload");
+            const prompt = document.getElementById("prompt").value || "Convert this image into Studio Ghibli style";
+            const resultDiv = document.getElementById("output-image");
+            
+            if (!fileInput.files[0]) {
+                alert("Please upload an image first!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+            formData.append("prompt", prompt);
+
+            resultDiv.style.display = "none";
+            alert("Transforming your image... This may take 20-30 seconds. 🎨✨");
+
+            try {
+                const response = await fetch("YOUR_NGROK_URL_HERE/ghibli-fy", {
+                    method: "POST",
+                    body: formData,
+                });
+                const data = await response.json();
+                
+                // Show the result
+                resultDiv.src = data.image_url;
+                resultDiv.style.display = "block";
+            } catch (error) {
+                alert("Error: " + error + "\nMake sure Colab is running!");
+            }
+        }
     </script>
 </body>
 </html>
