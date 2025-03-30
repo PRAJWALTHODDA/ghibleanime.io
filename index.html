@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghibli Style AI Generator</title>
+</head>
+<body>
+  <h1>🎨 Transform Your Image into Ghibli Style!</h1>
+  <input type="file" id="imageUpload" accept="image/*">
+  <button onclick="uploadImage()">Generate Ghibli Style</button>
+  <img id="output" style="margin-top:20px; max-width:300px;">
+  
+  <script>
+    function uploadImage() {
+      const file = document.getElementById('imageUpload').files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('output').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
