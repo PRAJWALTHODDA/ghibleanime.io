@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ghibli Style AI Generator</title>
+    <title>My Ghibli AI Creator</title>
+    <style>
+        body { font-family: Arial; text-align: center; background: #f0f8ff; }
+        button { padding: 10px 20px; font-size: 16px; }
+        #result { margin: 20px; }
+    </style>
 </head>
 <body>
-  <h1>🎨 Transform Your Image into Ghibli Style!</h1>
-  <input type="file" id="imageUpload" accept="image/*">
-  <button onclick="uploadImage()">Generate Ghibli Style</button>
-  <img id="output" style="margin-top:20px; max-width:300px;">
-  
-  <script>
-    function uploadImage() {
-      const file = document.getElementById('imageUpload').files[0];
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        document.getElementById('output').src = e.target.result;
-      };
-      reader.readAsDataURL(file);
+    <h1>Create Your Own Ghibli Art!</h1>
+    <input type="text" id="prompt" placeholder="Describe your Ghibli scene">
+    <button onclick="generateImage()">Make Magic!</button>
+    <div id="result"></div>
+    
+    <script>
+    async function generateImage() {
+        const promopt = document.getElementById('prompt').value;
+        document.getElementById('result').innerHTML = "Creating your Ghibli magic...";
+        
+        // This would normally connect to your Colab, but needs more setup
+        alert("We need to connect this to your Colab next!");
     }
-  </script>
+    </script>
 </body>
 </html>
